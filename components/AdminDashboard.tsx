@@ -28,6 +28,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ bundles, setBundles, sa
       setError('');
     } else {
       setError('Incorrect Admin Password');
+      setPassword('');
     }
   };
 
@@ -60,8 +61,8 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ bundles, setBundles, sa
 
   if (!isAuthenticated) {
     return (
-      <div className="max-w-md mx-auto mt-32 px-4 animate-in fade-in zoom-in duration-500">
-        <div className="glass p-10 rounded-[2.5rem] border border-blue-500/20 space-y-8">
+      <div className="flex items-center justify-center min-h-[70vh] px-4 py-20 animate-in fade-in zoom-in duration-500">
+        <div className="glass p-10 rounded-[2.5rem] border border-blue-500/20 space-y-8 w-full max-w-md shadow-2xl">
           <div className="text-center space-y-2">
             <div className="w-20 h-20 bg-blue-600 rounded-3xl mx-auto flex items-center justify-center shadow-2xl shadow-blue-600/30 rotate-3">
               <i className="fas fa-lock text-white text-3xl"></i>
@@ -78,8 +79,9 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ bundles, setBundles, sa
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter admin password"
-                className="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-6 py-4 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-center tracking-widest"
+                className="w-full bg-slate-900/50 border border-white/10 rounded-2xl px-6 py-4 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-center tracking-widest text-white"
                 required
+                autoFocus
               />
               {error && <p className="text-red-400 text-[10px] font-bold text-center uppercase tracking-widest mt-2">{error}</p>}
             </div>
@@ -280,7 +282,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ bundles, setBundles, sa
                     type="text" 
                     value={editingBundle.name} 
                     onChange={e => setEditingBundle({...editingBundle, name: e.target.value})}
-                    className="w-full bg-slate-900 border border-white/10 rounded-2xl px-5 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all"
+                    className="w-full bg-slate-900 border border-white/10 rounded-2xl px-5 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all text-white"
                     required
                   />
                 </div>
@@ -302,7 +304,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ bundles, setBundles, sa
                   type="url" 
                   value={editingBundle.image} 
                   onChange={e => setEditingBundle({...editingBundle, image: e.target.value})}
-                  className="w-full bg-slate-900 border border-white/10 rounded-2xl px-5 py-3 text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full bg-slate-900 border border-white/10 rounded-2xl px-5 py-3 text-sm focus:outline-none focus:border-blue-500 text-white"
                   required
                 />
               </div>
@@ -312,7 +314,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ bundles, setBundles, sa
                 <textarea 
                   value={editingBundle.description} 
                   onChange={e => setEditingBundle({...editingBundle, description: e.target.value})}
-                  className="w-full bg-slate-900 border border-white/10 rounded-2xl px-5 py-3 text-sm h-24 focus:outline-none focus:border-blue-500 transition-all resize-none"
+                  className="w-full bg-slate-900 border border-white/10 rounded-2xl px-5 py-3 text-sm h-24 focus:outline-none focus:border-blue-500 transition-all resize-none text-white"
                   required
                 ></textarea>
               </div>

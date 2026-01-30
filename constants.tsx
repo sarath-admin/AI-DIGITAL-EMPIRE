@@ -27,7 +27,7 @@ export const INITIAL_BUNDLES: Bundle[] = [
     description: '100+ Premium HTML/React templates and full stack project source codes.',
     price: 99,
     category: Category.WEB,
-    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=800&auto=format&fit=crop',
     features: ['Lifetime Access', 'SaaS Templates', 'Clean Documentation']
   },
   {
@@ -36,7 +36,7 @@ export const INITIAL_BUNDLES: Bundle[] = [
     description: 'Complete spoken and written English mastery course from beginner to fluent.',
     price: 79,
     category: Category.EDUCATION,
-    image: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=800&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=800&auto=format&fit=crop',
     features: ['Lifetime Access', 'Live Sessions', 'Grammar E-books']
   },
   {
@@ -45,7 +45,7 @@ export const INITIAL_BUNDLES: Bundle[] = [
     description: 'Go from zero to hero in Python. Includes AI and Data Science modules.',
     price: 299,
     category: Category.CAREER,
-    image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=800&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop',
     features: ['Lifetime Access', 'Automation Scripts', 'Certificate Included']
   },
   {
@@ -63,7 +63,7 @@ export const INITIAL_BUNDLES: Bundle[] = [
     description: 'Learn to create high-quality animations using top-tier AI video generation tools.',
     price: 399,
     category: Category.AI,
-    image: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=800&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop',
     features: ['Lifetime Access', 'Step-by-step Guide', 'Resource Kit Included']
   }
 ];
