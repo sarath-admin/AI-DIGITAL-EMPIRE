@@ -71,8 +71,9 @@ const App: React.FC = () => {
   };
 
   const completePayment = (bundle: Bundle) => {
+    const saleId = `S${Date.now()}`;
     const newSale: SaleRecord = {
-      id: `S${Date.now()}`,
+      id: saleId,
       bundleName: bundle.name,
       amount: bundle.price,
       customerName: 'Verified Student',
@@ -83,14 +84,16 @@ const App: React.FC = () => {
     setSales(prev => [...prev, newSale]);
     setShowPayment(null);
     
-    // Construct WhatsApp message
-    const message = `Hello Sarath, I have completed the payment for the course: *${bundle.name}* (Price: ${COMPANY_INFO.currency}${bundle.price}). Please provide my access details. My transaction ID is: S${Date.now()}`;
+    const message = `🚀 *NEW PURCHASE ALERT!* \n\n` +
+                    `👤 Customer: Verified Student\n` +
+                    `🎓 Course: *${bundle.name}*\n` +
+                    `💰 Amount: ${COMPANY_INFO.currency}${bundle.price}\n` +
+                    `🆔 Transaction ID: ${saleId}\n\n` +
+                    `_Please provide access link to this customer._`;
+    
     const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent(message)}`;
-    
-    // Open WhatsApp
     window.open(whatsappUrl, '_blank');
-    
-    alert(`Enrollment Successful! We are redirecting you to WhatsApp for instant course delivery.`);
+    alert(`Enrollment Successful! We have sent a purchase notification to Sarath on WhatsApp for your instant course access.`);
   };
 
   return (
@@ -101,91 +104,79 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={
             <div className="w-full space-y-0 pb-32">
-              {/* Hero Section */}
-              <section className="relative min-h-[calc(100vh-5rem)] flex items-center justify-center overflow-hidden bg-slate-900 border-b border-white/5 group shadow-2xl">
-                <div 
-                  className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1600&auto=format&fit=crop')] bg-cover bg-center opacity-40 scale-105 group-hover:scale-100 transition-transform duration-[10s] ease-out"
-                ></div>
-                
-                <div className="absolute inset-0 z-10 opacity-30 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #3b82f6 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
-                <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/20 to-slate-950/95 z-10"></div>
-                
-                <div className="relative text-center space-y-10 z-20 px-6 max-w-5xl animate-in fade-in zoom-in duration-700">
-                  <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-[10px] md:text-xs font-black uppercase tracking-[0.4em] mb-4 backdrop-blur-md">
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                    </span>
-                    The Ultimate AI Knowledge Hub
+              <section className="relative min-h-[calc(100vh-5rem)] flex items-center justify-center overflow-hidden bg-[#020617] group shadow-2xl">
+                <div className="absolute inset-0 z-0">
+                  <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] bg-blue-600/10 blur-[150px] rounded-full animate-pulse"></div>
+                  <div className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-purple-600/10 blur-[150px] rounded-full animate-pulse" style={{animationDelay: '2s'}}></div>
+                  <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, #3b82f6 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+                </div>
+
+                <div className="relative z-20 px-6 max-w-[1400px] w-full flex flex-col items-center justify-center text-center">
+                  <div className="animate-float mb-8">
+                    <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-white/5 border border-white/10 text-blue-400 text-xs font-black uppercase tracking-[0.3em] backdrop-blur-2xl">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                      </span>
+                      Next-Gen Digital Assets
+                    </div>
                   </div>
                   
-                  <h1 className="text-6xl md:text-[10rem] font-black tracking-tighter leading-none">
-                    AI DIGITAL <br/>
+                  <h1 className="text-5xl md:text-8xl font-black tracking-tighter leading-[1.1] uppercase drop-shadow-2xl">
+                    <span className="text-white block">AI DIGITAL</span>
                     <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">EMPIRE</span>
                   </h1>
                   
-                  <p className="text-xl md:text-4xl text-slate-300 font-medium max-w-4xl mx-auto drop-shadow-lg leading-snug">
-                    Build your future with world-class <span className="text-white font-extrabold italic">Lifetime Access</span> to AI courses, 
-                    <span className="text-white font-extrabold"> Premium Source Codes</span>, and 
-                    <span className="text-white font-extrabold"> Industry-Standard Toolkits</span>.
+                  <p className="mt-8 text-lg md:text-2xl text-slate-300 font-medium max-w-3xl mx-auto leading-relaxed">
+                    Transform your career with <span className="text-white font-bold italic border-b-2 border-blue-500 pb-1">Lifetime Access</span> to high-impact toolkits, premium codebases, and masterclasses.
                   </p>
                   
-                  <div className="flex flex-wrap justify-center gap-6 pt-10">
-                    <a href="#bundles" className="px-16 py-6 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-[2rem] text-lg transition-all hover:scale-110 shadow-2xl shadow-blue-600/50 flex items-center gap-3">
-                      Access Courses <i className="fas fa-arrow-right text-[10px]"></i>
+                  <div className="flex flex-wrap justify-center gap-6 pt-12">
+                    <a href="#bundles" className="px-10 py-5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-2xl text-lg transition-all hover:scale-105 shadow-xl flex items-center gap-3">
+                      View Courses <i className="fas fa-arrow-right text-xs"></i>
                     </a>
-                    <Link to="/admin" className="px-16 py-6 glass border-white/20 hover:bg-white/10 rounded-[2rem] font-bold text-lg transition-all flex items-center gap-3 backdrop-blur-xl">
-                      Admin Portal <i className="fas fa-shield-halved text-xs opacity-60"></i>
+                    <Link to="/admin" className="px-10 py-5 glass border-white/10 hover:bg-white/10 rounded-2xl font-bold text-lg transition-all flex items-center gap-3 backdrop-blur-3xl">
+                      Admin Access <i className="fas fa-shield-halved text-sm opacity-50"></i>
                     </Link>
                   </div>
                 </div>
+
+                <div className="hidden lg:block absolute top-1/2 left-10 w-32 h-32 glass rounded-2xl animate-float opacity-20 border border-white/10 -rotate-12" style={{animationDelay: '1s'}}></div>
+                <div className="hidden lg:block absolute bottom-20 right-20 w-48 h-48 glass rounded-[2.5rem] animate-float opacity-20 border border-white/10 rotate-12" style={{animationDelay: '3s'}}></div>
               </section>
 
-              {/* Stats Section */}
-              <div className="w-full bg-slate-900/50 border-b border-white/5">
-                <div className="max-w-[1800px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 py-24 px-10">
-                  <div className="text-center space-y-4 group">
-                    <div className="w-20 h-20 bg-blue-500/10 rounded-2xl mx-auto flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
-                      <i className="fas fa-bolt text-4xl"></i>
-                    </div>
-                    <div className="text-6xl font-black text-white italic">Instant</div>
-                    <div className="text-sm uppercase font-black text-slate-500 tracking-[0.2em]">Course Delivery</div>
+              {/* Stats Section with smaller text */}
+              <div className="w-full bg-slate-900/50 border-y border-white/5">
+                <div className="max-w-[1400px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 py-16 px-6">
+                  <div className="text-center group">
+                    <div className="text-4xl font-black text-white italic mb-1">Instant</div>
+                    <div className="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em]">Course Delivery</div>
                   </div>
-                  <div className="text-center space-y-4 group">
-                    <div className="w-20 h-20 bg-purple-500/10 rounded-2xl mx-auto flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
-                      <i className="fas fa-award text-4xl"></i>
-                    </div>
-                    <div className="text-6xl font-black text-white">Elite</div>
-                    <div className="text-sm uppercase font-black text-slate-500 tracking-[0.2em]">Quality Content</div>
+                  <div className="text-center group">
+                    <div className="text-4xl font-black text-white mb-1">Elite</div>
+                    <div className="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em]">Quality Content</div>
                   </div>
-                  <div className="text-center space-y-4 group">
-                    <div className="w-20 h-20 bg-cyan-500/10 rounded-2xl mx-auto flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
-                      <i className="fas fa-lock text-4xl"></i>
-                    </div>
-                    <div className="text-6xl font-black text-white">Lifetime</div>
-                    <div className="text-sm uppercase font-black text-slate-500 tracking-[0.2em]">Permanent Access</div>
+                  <div className="text-center group">
+                    <div className="text-4xl font-black text-white mb-1">Lifetime</div>
+                    <div className="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em]">Permanent Access</div>
                   </div>
-                  <div className="text-center space-y-4 group">
-                    <div className="w-20 h-20 bg-emerald-500/10 rounded-2xl mx-auto flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
-                      <i className="fas fa-headset text-4xl"></i>
-                    </div>
-                    <div className="text-6xl font-black text-white">24/7</div>
-                    <div className="text-sm uppercase font-black text-slate-500 tracking-[0.2em]">Expert Support</div>
+                  <div className="text-center group">
+                    <div className="text-4xl font-black text-white mb-1">24/7</div>
+                    <div className="text-[10px] uppercase font-black text-slate-500 tracking-[0.2em]">Expert Support</div>
                   </div>
                 </div>
               </div>
 
-              {/* Bundles Grid */}
-              <section id="bundles" className="w-full py-32 px-6 md:px-12">
-                <div className="max-w-[1800px] mx-auto space-y-20">
-                  <div className="flex flex-col md:flex-row items-center text-center md:text-left justify-between gap-8 border-l-8 border-blue-600 pl-8">
-                    <div className="space-y-4">
-                      <h2 className="text-7xl font-black tracking-tighter uppercase leading-none">Master The <br/>Digital Frontier</h2>
-                      <p className="text-slate-400 max-w-xl text-2xl font-medium italic">"Empowering Thoughtful Leaders with high-impact digital toolkits. All courses include Lifetime Access."</p>
+              <section id="bundles" className="w-full py-24 px-6 md:px-12">
+                <div className="max-w-[1400px] mx-auto space-y-20">
+                  <div className="flex flex-col md:flex-row items-end justify-between gap-6 border-l-4 border-blue-600 pl-8">
+                    <div className="space-y-2">
+                      <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-tight">Master The <br/><span className="text-blue-500">Digital</span> Art</h2>
+                      <p className="text-slate-400 max-w-xl text-lg font-medium italic">"Elite resources for tomorrow's leaders. Buy once, own forever."</p>
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {bundles.map(bundle => (
                       <CourseCard 
                         key={bundle.id} 
@@ -201,7 +192,7 @@ const App: React.FC = () => {
           } />
           
           <Route path="/admin" element={
-            <div className="max-w-[1800px] mx-auto px-6">
+            <div className="max-w-[1200px] mx-auto px-6 py-16">
               <AdminDashboard 
                 bundles={bundles} 
                 setBundles={setBundles} 

@@ -9,7 +9,7 @@ export const COMPANY_INFO = {
   developer: "Sarathkumar",
   currency: "₹",
   upiId: "kumarsarathk8@oksbi",
-  whatsapp: "919746920498" // Added WhatsApp number with country code
+  whatsapp: "919746920498" // Updated to the exact number requested
 };
 
 export const INITIAL_BUNDLES: Bundle[] = [
