@@ -82,7 +82,15 @@ const App: React.FC = () => {
     };
     setSales(prev => [...prev, newSale]);
     setShowPayment(null);
-    alert(`Enrollment Successful! Access to "${bundle.name}" (Lifetime Access) has been activated.`);
+    
+    // Construct WhatsApp message
+    const message = `Hello Sarath, I have completed the payment for the course: *${bundle.name}* (Price: ${COMPANY_INFO.currency}${bundle.price}). Please provide my access details. My transaction ID is: S${Date.now()}`;
+    const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent(message)}`;
+    
+    // Open WhatsApp
+    window.open(whatsappUrl, '_blank');
+    
+    alert(`Enrollment Successful! We are redirecting you to WhatsApp for instant course delivery.`);
   };
 
   return (
@@ -93,7 +101,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={
             <div className="w-full space-y-0 pb-32">
-              {/* Hero Section - Full Screen Width and Height */}
+              {/* Hero Section */}
               <section className="relative min-h-[calc(100vh-5rem)] flex items-center justify-center overflow-hidden bg-slate-900 border-b border-white/5 group shadow-2xl">
                 <div 
                   className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1600&auto=format&fit=crop')] bg-cover bg-center opacity-40 scale-105 group-hover:scale-100 transition-transform duration-[10s] ease-out"
@@ -103,7 +111,7 @@ const App: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/20 to-slate-950/95 z-10"></div>
                 
                 <div className="relative text-center space-y-10 z-20 px-6 max-w-5xl animate-in fade-in zoom-in duration-700">
-                  <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-black uppercase tracking-[0.4em] mb-4 backdrop-blur-md">
+                  <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-[10px] md:text-xs font-black uppercase tracking-[0.4em] mb-4 backdrop-blur-md">
                     <span className="relative flex h-2 w-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
@@ -116,68 +124,68 @@ const App: React.FC = () => {
                     <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">EMPIRE</span>
                   </h1>
                   
-                  <p className="text-xl md:text-3xl text-slate-300 font-medium max-w-3xl mx-auto drop-shadow-lg">
-                    Build your future with world-class <span className="text-white font-bold italic">Lifetime Access</span> to AI courses, 
-                    <span className="text-white font-bold"> Premium Source Codes</span>, and 
-                    <span className="text-white font-bold"> Industry-Standard Toolkits</span>.
+                  <p className="text-xl md:text-4xl text-slate-300 font-medium max-w-4xl mx-auto drop-shadow-lg leading-snug">
+                    Build your future with world-class <span className="text-white font-extrabold italic">Lifetime Access</span> to AI courses, 
+                    <span className="text-white font-extrabold"> Premium Source Codes</span>, and 
+                    <span className="text-white font-extrabold"> Industry-Standard Toolkits</span>.
                   </p>
                   
                   <div className="flex flex-wrap justify-center gap-6 pt-10">
-                    <a href="#bundles" className="px-16 py-6 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-[2rem] transition-all hover:scale-110 shadow-2xl shadow-blue-600/50 flex items-center gap-3">
+                    <a href="#bundles" className="px-16 py-6 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-[2rem] text-lg transition-all hover:scale-110 shadow-2xl shadow-blue-600/50 flex items-center gap-3">
                       Access Courses <i className="fas fa-arrow-right text-[10px]"></i>
                     </a>
-                    <Link to="/admin" className="px-16 py-6 glass border-white/20 hover:bg-white/10 rounded-[2rem] font-bold transition-all flex items-center gap-3 backdrop-blur-xl">
+                    <Link to="/admin" className="px-16 py-6 glass border-white/20 hover:bg-white/10 rounded-[2rem] font-bold text-lg transition-all flex items-center gap-3 backdrop-blur-xl">
                       Admin Portal <i className="fas fa-shield-halved text-xs opacity-60"></i>
                     </Link>
                   </div>
                 </div>
               </section>
 
-              {/* Stats Section - Full Width Background */}
+              {/* Stats Section */}
               <div className="w-full bg-slate-900/50 border-b border-white/5">
-                <div className="max-w-[1800px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 py-20 px-10">
+                <div className="max-w-[1800px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 py-24 px-10">
                   <div className="text-center space-y-4 group">
-                    <div className="w-16 h-16 bg-blue-500/10 rounded-2xl mx-auto flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
-                      <i className="fas fa-bolt text-3xl"></i>
+                    <div className="w-20 h-20 bg-blue-500/10 rounded-2xl mx-auto flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+                      <i className="fas fa-bolt text-4xl"></i>
                     </div>
-                    <div className="text-5xl font-black text-white italic">Instant</div>
-                    <div className="text-[12px] uppercase font-black text-slate-500 tracking-[0.2em]">Course Delivery</div>
+                    <div className="text-6xl font-black text-white italic">Instant</div>
+                    <div className="text-sm uppercase font-black text-slate-500 tracking-[0.2em]">Course Delivery</div>
                   </div>
                   <div className="text-center space-y-4 group">
-                    <div className="w-16 h-16 bg-purple-500/10 rounded-2xl mx-auto flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
-                      <i className="fas fa-award text-3xl"></i>
+                    <div className="w-20 h-20 bg-purple-500/10 rounded-2xl mx-auto flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                      <i className="fas fa-award text-4xl"></i>
                     </div>
-                    <div className="text-5xl font-black text-white">Elite</div>
-                    <div className="text-[12px] uppercase font-black text-slate-500 tracking-[0.2em]">Quality Content</div>
+                    <div className="text-6xl font-black text-white">Elite</div>
+                    <div className="text-sm uppercase font-black text-slate-500 tracking-[0.2em]">Quality Content</div>
                   </div>
                   <div className="text-center space-y-4 group">
-                    <div className="w-16 h-16 bg-cyan-500/10 rounded-2xl mx-auto flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
-                      <i className="fas fa-lock text-3xl"></i>
+                    <div className="w-20 h-20 bg-cyan-500/10 rounded-2xl mx-auto flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+                      <i className="fas fa-lock text-4xl"></i>
                     </div>
-                    <div className="text-5xl font-black text-white">Lifetime</div>
-                    <div className="text-[12px] uppercase font-black text-slate-500 tracking-[0.2em]">Permanent Access</div>
+                    <div className="text-6xl font-black text-white">Lifetime</div>
+                    <div className="text-sm uppercase font-black text-slate-500 tracking-[0.2em]">Permanent Access</div>
                   </div>
                   <div className="text-center space-y-4 group">
-                    <div className="w-16 h-16 bg-emerald-500/10 rounded-2xl mx-auto flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
-                      <i className="fas fa-headset text-3xl"></i>
+                    <div className="w-20 h-20 bg-emerald-500/10 rounded-2xl mx-auto flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                      <i className="fas fa-headset text-4xl"></i>
                     </div>
-                    <div className="text-5xl font-black text-white">24/7</div>
-                    <div className="text-[12px] uppercase font-black text-slate-500 tracking-[0.2em]">Expert Support</div>
+                    <div className="text-6xl font-black text-white">24/7</div>
+                    <div className="text-sm uppercase font-black text-slate-500 tracking-[0.2em]">Expert Support</div>
                   </div>
                 </div>
               </div>
 
-              {/* Bundles Grid - Expansive Container */}
-              <section id="bundles" className="w-full py-24 px-6 md:px-12">
+              {/* Bundles Grid */}
+              <section id="bundles" className="w-full py-32 px-6 md:px-12">
                 <div className="max-w-[1800px] mx-auto space-y-20">
-                  <div className="flex flex-col md:flex-row items-center text-center md:text-left justify-between gap-8 border-l-4 border-blue-600 pl-8">
+                  <div className="flex flex-col md:flex-row items-center text-center md:text-left justify-between gap-8 border-l-8 border-blue-600 pl-8">
                     <div className="space-y-4">
-                      <h2 className="text-6xl font-black tracking-tighter uppercase leading-none">Master The <br/>Digital Frontier</h2>
-                      <p className="text-slate-400 max-w-xl text-xl font-medium italic">"Empowering Thoughtful Leaders with high-impact digital toolkits. All courses include Lifetime Access."</p>
+                      <h2 className="text-7xl font-black tracking-tighter uppercase leading-none">Master The <br/>Digital Frontier</h2>
+                      <p className="text-slate-400 max-w-xl text-2xl font-medium italic">"Empowering Thoughtful Leaders with high-impact digital toolkits. All courses include Lifetime Access."</p>
                     </div>
                   </div>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
                     {bundles.map(bundle => (
                       <CourseCard 
                         key={bundle.id} 

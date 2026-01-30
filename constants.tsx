@@ -8,7 +8,8 @@ export const COMPANY_INFO = {
   startYear: 2025,
   developer: "Sarathkumar",
   currency: "₹",
-  upiId: "kumarsarathk8@oksbi"
+  upiId: "kumarsarathk8@oksbi",
+  whatsapp: "919746920498" // Added WhatsApp number with country code
 };
 
 export const INITIAL_BUNDLES: Bundle[] = [
