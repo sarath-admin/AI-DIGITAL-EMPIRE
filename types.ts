@@ -21,6 +21,19 @@ export interface CartItem extends Bundle {
   quantity: number;
 }
 
+export interface StudentDetails {
+  fullName: string;
+  fatherName: string;
+  dob: string;
+  gender: 'Male' | 'Female' | 'Other';
+  mobile: string;
+  email: string;
+  address: string;
+  city: string;
+  state: string;
+  pincode: string;
+}
+
 export interface SaleRecord {
   id: string;
   bundleName: string;

@@ -2,18 +2,21 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { INITIAL_BUNDLES, COMPANY_INFO } from './constants';
-import { Bundle, CartItem, SaleRecord, User } from './types';
+import { Bundle, CartItem, SaleRecord, User, StudentDetails } from './types';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CourseCard from './components/CourseCard';
 import Cart from './components/Cart';
 import AdminDashboard from './components/AdminDashboard';
 import PaymentQR from './components/PaymentQR';
+import EnrollmentForm from './components/EnrollmentForm';
 
 const App: React.FC = () => {
   const [bundles, setBundles] = useState<Bundle[]>(INITIAL_BUNDLES);
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [showEnrollmentForm, setShowEnrollmentForm] = useState<Bundle | null>(null);
+  const [enrollmentData, setEnrollmentData] = useState<StudentDetails | null>(null);
   const [showPayment, setShowPayment] = useState<Bundle | null>(null);
   const { pathname, hash } = useLocation();
 
@@ -67,17 +70,28 @@ const App: React.FC = () => {
   };
 
   const handlePurchase = (bundle: Bundle) => {
-    setShowPayment(bundle);
+    setShowEnrollmentForm(bundle);
+  };
+
+  const handleEnrollmentSubmit = (details: StudentDetails) => {
+    setEnrollmentData(details);
+    setShowEnrollmentForm(null);
+    if (showEnrollmentForm) {
+      setShowPayment(showEnrollmentForm);
+    }
   };
 
   const completePayment = (bundle: Bundle) => {
     const saleId = `S${Date.now()}`;
+    const customerName = enrollmentData?.fullName || 'Verified Student';
+    const customerEmail = enrollmentData?.email || 'student@example.com';
+
     const newSale: SaleRecord = {
       id: saleId,
       bundleName: bundle.name,
       amount: bundle.price,
-      customerName: 'Verified Student',
-      customerEmail: 'student@example.com',
+      customerName: customerName,
+      customerEmail: customerEmail,
       date: new Date().toISOString().split('T')[0],
       status: 'Completed'
     };
@@ -85,7 +99,9 @@ const App: React.FC = () => {
     setShowPayment(null);
     
     const message = `🚀 *NEW PURCHASE ALERT!* \n\n` +
-                    `👤 Customer: Verified Student\n` +
+                    `👤 Customer: *${customerName}*\n` +
+                    `📧 Email: ${customerEmail}\n` +
+                    `📞 Mobile: ${enrollmentData?.mobile || 'N/A'}\n` +
                     `🎓 Course: *${bundle.name}*\n` +
                     `💰 Amount: ${COMPANY_INFO.currency}${bundle.price}\n` +
                     `🆔 Transaction ID: ${saleId}\n\n` +
@@ -93,7 +109,8 @@ const App: React.FC = () => {
     
     const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsapp}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
-    alert(`Enrollment Successful! We have sent a purchase notification to Sarath on WhatsApp for your instant course access.`);
+    alert(`Enrollment Successful! We have sent a purchase notification to Sarath on WhatsApp for your instant course access. A course access link will also be sent to ${customerEmail} shortly.`);
+    setEnrollmentData(null);
   };
 
   return (
@@ -218,6 +235,14 @@ const App: React.FC = () => {
           setIsCartOpen(false);
         }}
       />
+
+      {showEnrollmentForm && (
+        <EnrollmentForm 
+          bundle={showEnrollmentForm}
+          onClose={() => setShowEnrollmentForm(null)}
+          onSubmit={handleEnrollmentSubmit}
+        />
+      )}
 
       {showPayment && (
         <PaymentQR 
